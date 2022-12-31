@@ -1,0 +1,46 @@
+import random
+import discord
+from discord.ext import commands
+
+TOKEN = ('NjMyODE0NzgxNTU1OTMzMjE0.XaK4sQ.7_PFUtK2ukdVki-ckyEdya3bCC8')
+
+Bot = commands.Bot(command_prefix='Bro_')
+
+
+@Bot.event
+async def on_ready():
+    print('Brotron is Online!')
+
+
+@Bot.event
+async def on_member_join(member):
+    print(f'{member} has joined the bro army!')
+
+
+@Bot.event
+async def on_member_remove(member):
+    print(f'{member} has betrayed the bro army!')
+
+
+@Bot.command()
+async def Arguments(ctx, *args):
+    await ctx.send('{} arguments: {}'.format(len(args), ', '.join(args)))
+
+
+@Bot.command()
+async def Math(ctx, R: int, S: int):
+    await ctx.send(R + S)
+
+
+class Slapper(commands.Converter):
+    async def convert(self, ctx, argument):
+        to_slap = random.choice(ctx.guild.members)
+        return '{0.author} slapped {1} because *{2}*'.format(ctx, to_slap, argument)
+
+
+@Bot.command()
+async def slap(ctx, *, reason: Slapper):
+    await ctx.send(reason)
+
+
+Bot.run(TOKEN)

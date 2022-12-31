@@ -1,0 +1,5 @@
+add_library(search_deliver SHARED search_deliver.h search_deliver.cpp)
+target_link_libraries(search_deliver
+  argos3core_simulator
+  argos3plugin_simulator_footbot
+  argos3plugin_simulator_genericrobot)
